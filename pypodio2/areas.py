@@ -107,7 +107,7 @@ class Item(Area):
             url="/item/app/%d/filter/" % app_id,
             body=attributes,
             type="application/json",
-            **kwargs
+            **kwargs,
         )
 
     def filter_by_view(self, app_id, view_id):
@@ -202,6 +202,27 @@ class Application(Area):
         attributes = json.dumps(attributes)
         return self.transport.POST(
             url="/app/%s/field/" % app_id, body=attributes, type="application/json"
+        )
+
+    def update_field(self, app_id, field_id, attributes):
+        """
+        updates field on app with app_id
+
+        :param app_id: Application ID
+        :type app_id: str or int
+        :type field_id: str or int
+        :param attributes: Refer to API.
+        :type attributes: dict
+        :return: Python dict of JSON response
+        :rtype: dict
+        """
+        if not isinstance(attributes, dict):
+            raise TypeError("Must be of type dict")
+        attributes = json.dumps(attributes)
+        return self.transport.POST(
+            url=f"/app/{app_id}/field/{field_id}",
+            body=attributes,
+            type="application/json",
         )
 
     def deactivate(self, app_id):
