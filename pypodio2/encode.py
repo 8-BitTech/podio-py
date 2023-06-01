@@ -115,7 +115,7 @@ class MultipartParam(object):
             self.filename = None
         else:
             self.filename = str(filename)
-            self.filename = self.filename.replace('"', '\\"')
+            self.filename = self.filename.encode("string_escape").replace('"', '\\"')
         self.filetype = _strify(filetype)
 
         self.filesize = filesize
