@@ -219,7 +219,7 @@ class Application(Area):
         if not isinstance(attributes, dict):
             raise TypeError("Must be of type dict")
         attributes = json.dumps(attributes)
-        return self.transport.PUT(
+        return self.transport.POST(
             url=f"/app/{app_id}/field/{field_id}",
             body=attributes,
             type="application/json",
