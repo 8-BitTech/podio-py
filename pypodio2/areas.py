@@ -579,6 +579,23 @@ class Files(Area):
             url="/file/v2/", body=attributes, type="multipart/form-data"
         )
 
+    def create_v2(self, filename, filedata):
+        import requests
+
+        # NOTE: This is really bad. FIX THIS ASAP.
+        # NOTE: This is a work around for uploading files to podio
+
+        headers = self.transport.__dict__[
+            "_headers_factory"
+        ].base_headers_factory.token.to_headers()
+        url = self.transport._api_url
+        payload = {"filename": filename}
+        files = {"source": filedata}
+
+        return requests.post(
+            f"{url}/file/v2/", headers=headers, data=payload, files=files
+        )
+
     def copy(self, file_id):
         """Copy a file to generate a new file_id"""
 
